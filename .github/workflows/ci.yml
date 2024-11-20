@@ -48,3 +48,9 @@ jobs:
         run: |-
           . .venv/bin/activate
           pytest -v
+  required-check:
+    name: All Tests Passed
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All tests passed!"
