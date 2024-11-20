@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Install the default version of uv
         id: setup-uv
-        uses: astral-sh/setup-uv@e779db74266a80753577425b0f4ee823649f251d
+        uses: astral-sh/setup-uv@3eca4c2715d476ba3ef77c94c2afbfef1b3ffb2f
         with:
           enable-cache: true
       - run: echo "Installed uv version is ${{ steps.setup-uv.outputs.uv-version }}"
