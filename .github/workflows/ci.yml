@@ -26,15 +26,12 @@ jobs:
           - "3.12"
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Set up uv
-        uses: astral-sh/setup-uv@e779db74266a80753577425b0f4ee823649f251d # v3
+      - name: Install the default version of uv
+        id: setup-uv
+        uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
-          cache-dependency-glob: "**/pyproject.toml"
+      - run: echo "Installed uv version is ${{ steps.setup-uv.outputs.uv-version }}"
       - name: Install dependencies
         run: uv sync
       - name: Run tests (Windows)
