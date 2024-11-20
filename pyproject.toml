@@ -6,7 +6,7 @@ authors = [
   { name = "Taylor Monacelli", email = "taylormonacelli@gmail.com" }
 ]
 dependencies = [
-   "tzdata==2024.2"
+   "tzdata>=2024.1"
 ]
 readme = "README.md" 
 requires-python = ">= 3.9"
@@ -37,11 +37,11 @@ extend-select = ["I"]
 
 [dependency-groups]
 dev = [
-    "pytest>=8.3.3",
+   "pytest>=8.3.3",
 ]
 
 [tool.hatch.envs.test]
 dependencies = [
-   "pytest>=7.0.0",
-   "pytest-cov>=4.1.0",
+  "pytest>=7.0.0",
+  "pytest-cov>=4.1.0",
 ]

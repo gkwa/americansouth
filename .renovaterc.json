@@ -6,12 +6,11 @@
       "automerge": true,
       "automergeStrategy": "merge-commit",
       "matchDepTypes": ["*"],
-      "rangeStrategy": "pin",
       "recreateWhen": "always"
     }
   ],
   "platformAutomerge": true,
   "prConcurrentLimit": 0,
-  "prCreation": "not-pending",
+  "prCreation": "immediate",
   "prHourlyLimit": 0
 }
