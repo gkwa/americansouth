@@ -1,6 +1,7 @@
 import datetime
 import json
 import typing
+import zoneinfo
 
 from .billing_cycle import BillingCycle
 from .usage_calculator import UsageCalculator
@@ -13,6 +14,14 @@ class DataProcessor:
         self.billing_cycle = BillingCycle()
         self.usage_calculator = UsageCalculator()
 
+    def _parse_datetime(self, dt_str: str) -> datetime.datetime:
+        try:
+            dt = datetime.datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
+            return dt.replace(tzinfo=zoneinfo.ZoneInfo("UTC"))
+        except ValueError:
+            dt = datetime.datetime.strptime(dt_str, "%Y-%m-%dT%H:%M:%S.%fZ")
+            return dt.replace(tzinfo=zoneinfo.ZoneInfo("UTC"))
+
     def process_data(
         self,
     ) -> typing.List[typing.Tuple[float, float, datetime.datetime, float, float]]:
@@ -23,9 +32,7 @@ class DataProcessor:
         for record in self.data:
             amount: float = float(record["amount"])
             total: float = float(record["total"])
-            scraped_at: datetime.datetime = datetime.datetime.fromisoformat(
-                record["scrapedAt"]
-            )
+            scraped_at: datetime.datetime = self._parse_datetime(record["scrapedAt"])
 
             if amount not in amount_groups or scraped_at > amount_groups[amount][0]:
                 next_billing: datetime.datetime = (
