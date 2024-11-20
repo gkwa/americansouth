@@ -10,6 +10,7 @@ name: Build & Test
     - cron: 01 13 * * SAT
 jobs:
   test:
+    name: Build & Test
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
