@@ -37,6 +37,7 @@ jobs:
           uv venv --python ${{ matrix.python-version }}
           uv sync
       - name: Run tests
+        shell: bash
         run: |
           . .venv/bin/activate
           pytest -v
