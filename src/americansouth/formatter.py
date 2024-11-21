@@ -14,6 +14,6 @@ class DataFormatter:
         )
         return (
             pst_time.strftime("%a %b %d %I:%M %p %Y")
-            .replace(" PM", " pm")
-            .replace(" AM", " am")
+            .replace(" PM", "pm")
+            .replace(" AM", "am")
         )
