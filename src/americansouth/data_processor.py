@@ -1,16 +1,15 @@
 import datetime
-import json
 import typing
 import zoneinfo
 
 from .billing_cycle import BillingCycle
+from .repository import Repository
 from .usage_calculator import UsageCalculator
 
 
 class DataProcessor:
-    def __init__(self, data_file: str) -> None:
-        with open(data_file) as f:
-            self.data: typing.List[typing.Dict[str, typing.Any]] = json.load(f)
+    def __init__(self, repository: Repository) -> None:
+        self.repository = repository
         self.billing_cycle = BillingCycle()
         self.usage_calculator = UsageCalculator()
 
@@ -29,7 +28,7 @@ class DataProcessor:
             float, typing.Tuple[datetime.datetime, float, float, float]
         ] = {}
 
-        for record in self.data:
+        for record in self.repository.load():
             amount: float = float(record["amount"])
             total: float = float(record["total"])
             scraped_at: datetime.datetime = self._parse_datetime(record["scrapedAt"])

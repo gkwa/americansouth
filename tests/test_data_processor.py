@@ -1,24 +1,25 @@
 from americansouth.data_processor import DataProcessor
+from americansouth.repository import JsonRepository
 
 
 def test_process_data_basic(sample_data_file):
-    processor = DataProcessor(str(sample_data_file))
+    repository = JsonRepository(str(sample_data_file))
+    processor = DataProcessor(repository)
     records = processor.process_data()
 
     assert len(records) == 2
-    assert records[0][1] == 79.13  # amount
-    assert records[1][1] == 85.33  # amount
+    assert records[0][1] == 79.13
+    assert records[1][1] == 85.33
 
 
 def test_process_data_daily_usage(complex_data_file):
-    processor = DataProcessor(str(complex_data_file))
+    repository = JsonRepository(str(complex_data_file))
+    processor = DataProcessor(repository)
     records = processor.process_data()
 
-    # Check amounts are correctly ordered
     amounts = [record[1] for record in records]
     assert amounts == [50.0, 75.0, 100.0]
 
-    # Check daily usage calculation
     prev_amount = 0
     daily_usages = []
     for record in records:

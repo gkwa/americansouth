@@ -1,12 +1,23 @@
 ```mermaid
 classDiagram
     class DataProcessor {
-        -List~Dict~ data
+        -Repository repository
         -BillingCycle billing_cycle
         -UsageCalculator usage_calculator
-        +__init__(data_file: str)
+        +__init__(repository: Repository)
         -_parse_datetime(dt_str: str)
         +process_data()
+    }
+
+    class Repository {
+        <<abstract>>
+        +load()*
+    }
+
+    class JsonRepository {
+        -str data_file
+        +__init__(data_file: str)
+        +load()
     }
 
     class BillingCycle {
@@ -40,8 +51,10 @@ classDiagram
         +data_file: str
     }
 
-    DataProcessor --> BillingCycle: uses
-    DataProcessor --> UsageCalculator: uses
-    DisplayManager --> DataFormatter: uses
+    Repository <|-- JsonRepository
+    DataProcessor --> Repository
+    DataProcessor --> BillingCycle
+    DataProcessor --> UsageCalculator
+    DisplayManager --> DataFormatter
     DataProcessor ..> CliArgs: uses data_file from
-    ```
+```

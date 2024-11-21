@@ -3,12 +3,14 @@ import sys
 from .cli import parse_args
 from .data_processor import DataProcessor
 from .display import DisplayManager
+from .repository import JsonRepository
 
 
 def main() -> int:
     args = parse_args()
 
-    processor = DataProcessor(args.data_file)
+    repository = JsonRepository(args.data_file)
+    processor = DataProcessor(repository)
     display = DisplayManager()
 
     records = processor.process_data()
