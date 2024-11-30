@@ -1,15 +1,17 @@
 import datetime
 
+from .constants import SECONDS_PER_DAY
+
 
 class UsageCalculator:
     @staticmethod
     def calc_daily_limit(
         amount: float,
         total: float,
-        hours_remaining: float,
+        seconds_remaining: float,
     ) -> float:
         remaining_gb: float = total - amount
-        days_remaining: float = hours_remaining / 24
+        days_remaining: float = seconds_remaining / SECONDS_PER_DAY
 
         if days_remaining < 1:
             return remaining_gb
@@ -20,4 +22,4 @@ class UsageCalculator:
     def calc_hours_remaining(
         current_time: datetime.datetime, next_billing: datetime.datetime
     ) -> float:
-        return (next_billing - current_time).total_seconds() / 3600
+        return (next_billing - current_time).total_seconds()
