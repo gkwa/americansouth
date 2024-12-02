@@ -28,15 +28,20 @@ class DataProcessor:
             float, typing.Tuple[datetime.datetime, float, float, float]
         ] = {}
 
+        prev_billing_cycle = None
+
         for record in self.repository.load():
             amount: float = float(record["amount"])
             total: float = float(record["total"])
             scraped_at: datetime.datetime = self._parse_datetime(record["scrapedAt"])
+            next_billing: datetime.datetime = self.billing_cycle.get_next_cycle_start(
+                scraped_at
+            )
+
+            if prev_billing_cycle and next_billing > prev_billing_cycle:
+                amount = 0
 
             if amount not in amount_groups or scraped_at > amount_groups[amount][0]:
-                next_billing: datetime.datetime = (
-                    self.billing_cycle.get_next_cycle_start(scraped_at)
-                )
                 hours_remaining: float = self.usage_calculator.calc_hours_remaining(
                     scraped_at, next_billing
                 )
@@ -49,6 +54,8 @@ class DataProcessor:
                     daily_limit,
                     total,
                 )
+
+            prev_billing_cycle = next_billing
 
         records: typing.List[
             typing.Tuple[float, float, datetime.datetime, float, float]

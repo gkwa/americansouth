@@ -1,6 +1,6 @@
 [project]
 name = "americansouth"
-version = "0.2.2"
+version = "0.2.3"
 description = "Monitor internet data usage to avoid overage charges"
 authors = [
   { name = "Taylor Monacelli", email = "taylormonacelli@gmail.com" }

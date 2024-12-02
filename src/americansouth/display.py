@@ -33,7 +33,7 @@ class DisplayManager:
         prev_amount = 0
         for record in records:
             _, amount, scraped_at, daily_limit, total = record
-            daily_used = amount - prev_amount
+            daily_used = max(0, amount - prev_amount)
             remaining = total - amount
 
             daily_str = f"{int(daily_used)}GB"
@@ -74,7 +74,7 @@ class DisplayManager:
         prev_amount: float,
     ) -> None:
         _, amount, scraped_at, daily_limit, total = record
-        daily_used: float = amount - prev_amount
+        daily_used: float = max(0, amount - prev_amount)
         remaining: float = total - amount
         daily_str: str = f"{int(daily_used)}GB"
         total_str: str = f"{int(amount)}GB"
