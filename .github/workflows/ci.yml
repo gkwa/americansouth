@@ -25,7 +25,7 @@ jobs:
           - "3.11"
           - "3.12"
     steps:
-      - uses: actions/checkout@009b9ae9e446ad8d9b8c809870b0fbcc5e03573e
+      - uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
       - uses: astral-sh/setup-uv@3548439624127c489c1ca842eb263681394bc7b3
         id: setup-uv
         with:
