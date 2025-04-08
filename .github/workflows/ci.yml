@@ -26,7 +26,7 @@ jobs:
           - "3.12"
     steps:
       - uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
-      - uses: astral-sh/setup-uv@9e2c33a08245c3c948a6359a66dee8ba3641bf50
+      - uses: astral-sh/setup-uv@9ad030384d649dcdad575ef964e02a9fdce218ab
         id: setup-uv
         with:
           enable-cache: true
